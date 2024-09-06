@@ -46,7 +46,7 @@ int main(){
     cout<<"The matrix before transpose operation is ";
     print_matrix(*mat,n,m);
     transpose(*mat,*res,n,m);
-    cout<<"The matrix after transpose operation is ";
+    cout<<"The transposed matrix is ";
     print_matrix(*res,m,n);
 
     cout<<endl;

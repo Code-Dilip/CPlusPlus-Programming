@@ -23,12 +23,6 @@ void print_matrix(int *mat,int n){
     cout<<endl;
 }
 
-void swap(int *a,int *b){
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
 void transpose_matrix(int *mat,int *res,int n){
     for(int i=0;i<n;i++){
         for(int j=0;j<n;j++){
@@ -44,14 +38,14 @@ int main(){
     cin>>n;
 
     int mat[n][n],res[n][n];
-    input_matrix((int *)mat,n);
+    input_matrix(*mat,n);
     cout<<"\nThe matrix before transpose is "<<endl;
-    print_matrix((int *)mat,n);
+    print_matrix(*mat,n);
 
-    transpose_matrix((int *)mat,(int *)res,n);
-    cout<<"\nThe matrix after transpose is "<<endl;
+    transpose_matrix(*mat,*res,n);
+    cout<<"\nThe transposed matrix is "<<endl;
     
-    print_matrix((int *)res,n);
+    print_matrix(*res,n);
 
     cout<<endl;
     return 0;
