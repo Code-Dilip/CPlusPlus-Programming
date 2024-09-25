@@ -5,28 +5,26 @@ using namespace std;
 
 class shape{
     public:
-    float width;
-    float length;
+    float length,width;
     public:
     shape(){
-        cout<<"\nenter the width: ";
-        cin>>width;
-        cout<<"enter the length: ";
+        cout<<"\nenter the length: ";
         cin>>length;
+        cout<<"enter the width: ";
+        cin>>width;
     }
     void display(){
-        cout<<"\nLength = "<<length<<endl;
+        cout<<"\nLenght = "<<length<<endl;
         cout<<"Width = "<<width<<endl;
     }
 };
 
 class parameters : public shape{
-    float area;
-    float perimeter;
+    float area,perimeter;
     public:
     parameters(){
-        area = width * length;
-        perimeter = 2*(length + width);
+        area = length * width;
+        perimeter = 2*(length+width);
     }
     void display1(){
         display();
