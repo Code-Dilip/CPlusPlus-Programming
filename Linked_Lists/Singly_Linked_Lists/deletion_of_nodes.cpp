@@ -37,8 +37,9 @@ void insertAtPos(node **head,int val,int pos){
         return ;
     }
     node *newp = new node(val);
-    if(*head == nullptr || pos == 1){
+    if(*head == nullptr){
         *head = newp;
+        return ;
     }
     node *temp = *head;
     pos --;
@@ -50,17 +51,43 @@ void insertAtPos(node **head,int val,int pos){
     temp->next = newp;
 }
 
+void deleteAtHead(node **head){
+    if(*head == nullptr){
+        cout<<"Empty!"<<endl;
+        return ;
+    }
+    node *temp = *head;
+    *head = (*head)->next;
+    free(temp);
+}
+
+void deleteAtEnd(node **head){
+    if(*head == nullptr){
+        cout<<"Empty!"<<endl;
+        return ;
+    }
+    node *temp = *head;
+    while(temp->next->next != nullptr){
+        temp = temp->next;
+    }
+    free(temp->next);
+    temp->next = nullptr;
+}
+
+void deleteAtPos(node **head,int pos){
+    
+}
+
 void display(node *ptr){
     if(ptr == nullptr){
         cout<<"\nThe List is Empty!"<<endl;
     }
-    cout<<ptr->data;
-    ptr = ptr->next;
+   
     while(ptr != NULL){
-        cout<<"->"<<ptr->data;
+        cout<<ptr->data<<"->";
         ptr = ptr->next;
     }
-    cout<<endl;
+    cout<<"Null"<<endl;
 }
 
 int main(){
@@ -75,11 +102,21 @@ int main(){
     insertAtEnd(&head,8);
     display(head);
 
+    cout<<endl;
+    insertAtPos(&head,13,1);
     insertAtPos(&head,9,2);
     display(head);
     insertAtPos(&head,10,6);
     display(head);
     insertAtPos(&head,11,12);
+    display(head);
+    
+    cout<<endl;
+    deleteAtHead(&head);
+    display(head);
+
+    cout<<endl;
+    deleteAtEnd(&head);
     display(head);
 
     cout<<endl;
