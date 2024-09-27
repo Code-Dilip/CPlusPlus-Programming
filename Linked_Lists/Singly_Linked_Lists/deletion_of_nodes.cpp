@@ -75,7 +75,27 @@ void deleteAtEnd(node **head){
 }
 
 void deleteAtPos(node **head,int pos){
-    
+    if(pos == 1){
+        deleteAtHead(head);
+        return ;
+    }
+    if(*head == nullptr){
+        cout<<"Empty!"<<endl;
+        return ;
+    }
+    node *temp = *head,*del_node;
+    pos --;
+    while(pos > 1 && temp->next != nullptr){
+        temp = temp->next;
+        pos --;
+    }
+    if(temp->next == nullptr){
+        deleteAtEnd(head);
+        return ;
+    }
+    del_node = temp->next;
+    temp->next = temp->next->next;
+    free(del_node);
 }
 
 void display(node *ptr){
@@ -117,6 +137,14 @@ int main(){
 
     cout<<endl;
     deleteAtEnd(&head);
+    display(head);
+
+    cout<<endl;
+    deleteAtPos(&head,1);
+    display(head);
+    deleteAtPos(&head,5);
+    display(head);
+    deleteAtPos(&head,15);
     display(head);
 
     cout<<endl;
