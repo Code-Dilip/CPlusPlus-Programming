@@ -98,10 +98,30 @@ void deleteAtPos(node **head,int pos){
     free(del_node);
 }
 
+void deleteList(node **head){
+    while(*head != nullptr){
+        deleteAtHead(head);
+    }
+}
+
+void reverse_list(node **head){
+    if(*head == nullptr){
+        return;
+    }
+    node *prev = nullptr,*curr = *head,*next = nullptr;
+    while(curr != nullptr){
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    *head = prev;
+}
+
 void display(node *ptr){
     if(ptr == nullptr){
         cout<<"The List is Empty!"<<endl;
-        return ;
+        return;
     }
    
     while(ptr != NULL){
@@ -146,6 +166,10 @@ int main(){
     deleteAtPos(&head,5);
     display(head);
     deleteAtPos(&head,15);
+    display(head);
+
+    cout<<endl;
+    reverse_list(&head);
     display(head);
 
     cout<<endl;

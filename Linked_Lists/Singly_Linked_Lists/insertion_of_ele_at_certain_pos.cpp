@@ -52,7 +52,8 @@ void insertAtPos(node **head,int val,int pos){
 
 void display(node *ptr){
     if(ptr == nullptr){
-        cout<<"\nThe List is Empty!"<<endl;
+        cout<<"The List is Empty!"<<endl;
+        return ;
     }
     cout<<ptr->data;
     ptr = ptr->next;
