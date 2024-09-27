@@ -38,11 +38,11 @@ void insertAtPos(node **head,int val,int pos){
     }
     node *temp = *head;
     pos --;
-    while(pos>1 && temp->next->next != nullptr){
+    while(pos>1 && temp->next != nullptr){
         temp = temp->next;
         pos --;
     }
-    newp->next = temp->next->next;
+    newp->next = temp->next;
     temp->next = newp;
 }
 
