@@ -23,6 +23,10 @@ class stack{
 
     void push(int val){
         node *newp = new node(val);
+        if(newp == nullptr){
+            cout<<"Stack Overflow!"<<endl;
+            return ;
+        }
         if(top == nullptr){
             top = newp;
             return ;
