@@ -16,8 +16,10 @@ class node{
 
 class stack{
     public:
+    node *head;
     node *top;
     stack(){
+        head = nullptr;
         top = nullptr;
     }
 
@@ -29,6 +31,7 @@ class stack{
         }
         if(top == nullptr){
             top = newp;
+            head = top;
             return ;
         }
         top->next = newp;
@@ -42,6 +45,7 @@ class stack{
             return ;
         }
         node *temp = top;
+        top->next = nullptr;
         top = top->prev;
         free(temp);
     }
@@ -62,10 +66,10 @@ class stack{
     }
 
     void print(){
-        node *temp = top;
-        while(temp != nullptr){
+        node *temp = head;
+        while(temp->next != nullptr){
             cout<<temp->data<<" ";
-            temp = temp->prev;
+            temp = temp->next;
         }
         cout<<endl;
     }
