@@ -7,6 +7,7 @@ class node{
     int data;
     node *prev;
     node *next;
+    
     node(int val){
         data = val;
         prev = nullptr;
@@ -18,9 +19,10 @@ class stack{
     public:
     node *head;
     node *top;
+
     stack(){
-        head = nullptr;
         top = nullptr;
+        head = nullptr;
     }
 
     void push(int val){
@@ -34,24 +36,29 @@ class stack{
             head = top;
             return ;
         }
-        top->next = newp;
-        newp->prev = top;
-        top = newp;
+        else{
+            top->next = newp;
+            newp->prev = top;
+            top = newp;
+        }
     }
-    
+
     void pop(){
-        if(top==nullptr){
+        if(top == nullptr){
             cout<<"Stack is Empty!"<<endl;
             return ;
         }
         node *temp = top;
-        top->next = nullptr;
         top = top->prev;
         free(temp);
+        temp = nullptr;
+        if(top!=nullptr){
+            top->next = temp;
+        }
     }
 
     int seek(){
-        if(top==nullptr){
+        if(top == nullptr){
             cout<<"Stack is Empty!"<<endl;
             return 0;
         }
@@ -66,12 +73,15 @@ class stack{
     }
 
     void print(){
+        if(head == nullptr){
+            cout<<"Stack is Empty!"<<endl;
+            return ;
+        }
         node *temp = head;
         while(temp->next != nullptr){
             cout<<temp->data<<" ";
             temp = temp->next;
         }
-        cout<<endl;
     }
 };
 
@@ -83,21 +93,26 @@ int main(){
     s.push(4);
     s.push(5);
     s.print();
-    cout<<s.seek()<<endl;
+    //cout<<s.seek()<<endl;
     cout<<s.isEmpty()<<endl;
-
-    s.pop();
-    s.pop();
-    s.print();
-    cout<<s.seek()<<endl;
-    cout<<s.isEmpty()<<endl;
+    cout<<endl;
 
     s.pop();
     s.pop();
     s.pop();
     s.print();
+    //cout<<s.seek()<<endl;
+    cout<<s.isEmpty()<<endl;
+    cout<<endl;
+
+    s.pop();
+    s.pop();
     cout<<s.seek()<<endl;
     cout<<s.isEmpty()<<endl;
+    cout<<endl;
 
+    s.pop();
+    s.seek();
+    cout<<endl;
     return 0;
 }
