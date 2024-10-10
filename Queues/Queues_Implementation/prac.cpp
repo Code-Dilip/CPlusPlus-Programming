@@ -6,7 +6,6 @@ class node{
     public:
     int data;
     node *next;
-    
     public:
     node(int val){
         data = val;
@@ -14,10 +13,9 @@ class node{
     }
 };
 
-class Queue{
+class  Queue {
     node *front;
     node *back;
-
     public:
     Queue(){
         front = nullptr;
@@ -28,7 +26,7 @@ class Queue{
         node *newp = new node(x);
         if(newp == nullptr){
             cout<<"Queue Overflow!"<<endl;
-            return ;
+            return;
         }
         if(front == nullptr){
             back = newp;
@@ -44,10 +42,10 @@ class Queue{
             cout<<"Queue is Empty!"<<endl;
             return ;
         }
-        node *temp = front;
+        node *delNode = front ;
         front = front->next;
-        delete temp;
-        temp = nullptr;
+        free(delNode);
+        delNode = nullptr;
     }
 
     int peek(){
@@ -57,31 +55,29 @@ class Queue{
         }
         return front->data;
     }
-
+    
     bool empty(){
         if(front == nullptr){
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 
     void print(){
-        if(front == nullptr){
-            cout<<"Queue is Empty!"<<endl;
-            return ;
-        }
         node *temp = front;
-        while(temp != nullptr){
-            cout<<temp->data<<" ";
-            temp = temp->next;
+        cout<<"[ ";
+        if(front != nullptr){
+            while(temp->next != nullptr){
+                cout<<temp->data<<",";
+                temp = temp->next;
+                }
+            cout<<temp->data<<" ]"<<endl;
         }
-        cout<<endl;
     }
-
 };
 
 int main(){
-     
+
     Queue q;
     q.enqueue(1);
     q.enqueue(2);
@@ -93,12 +89,15 @@ int main(){
     cout<<endl;
     q.dequeue();
     q.print();
+    cout<<q.peek()<<endl;
+    cout<<q.empty()<<endl;
+    
+    cout<<endl;
     q.dequeue();
     q.dequeue();
     q.print();
-    q.peek();
+    cout<<q.peek()<<endl;
     cout<<q.empty()<<endl;
-    q.dequeue();
-    
+
     return 0;
 }

@@ -85,29 +85,69 @@ class stack  {
     }
 };
 
+
+class Queue {
+    stack s1;
+    stack s2;
+    public:
+    void enqueue(int x){
+        s1.push(x);
+    }
+
+    void dequeue(){
+        if(s1.empty() && s2.empty()){
+            cout<<"Queue is Empty!"<<endl;
+            return ;
+        }
+        if(s2.empty()){
+            while(!s1.empty()){
+                s2.push(s1.seek());
+                s1.pop();
+            }
+        }
+        s2.pop();
+    }
+
+    int peek(){
+        return s2.seek();
+    }
+
+    bool Empty(){
+        if(s1.empty() && s2.empty()){
+            return 1;
+        }
+        return 0;
+    }
+    
+    void Print(){
+        if(s2.empty()){
+            s1.print();
+            return ;
+        }
+        s2.print();
+    }
+};
+
 int main(){
-    stack s;
-    s.push(1);
-    s.push(2);
-    s.push(3);
-    s.push(4);
-    s.print();
-    cout<<s.seek()<<endl;
-    cout<<s.empty()<<endl;
+    Queue q;
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+    q.Print();
+    cout<<q.Empty()<<endl;
+    
     cout<<endl;
-
-    s.pop();
-    s.print();
-    cout<<s.seek()<<endl;
-    cout<<s.empty()<<endl;
+    q.dequeue();
+    q.Print();
+    cout<<q.peek()<<endl;
+    cout<<q.Empty()<<endl;
+    
     cout<<endl;
-
-    s.pop();
-    s.pop();
-    s.pop();
-    cout<<s.seek()<<endl;
-    cout<<s.empty()<<endl;
-    cout<<endl;
+    q.dequeue();
+    q.dequeue();
+    q.Print();
+    cout<<q.peek()<<endl;
+    cout<<q.Empty()<<endl;
 
     return 0;
 }
