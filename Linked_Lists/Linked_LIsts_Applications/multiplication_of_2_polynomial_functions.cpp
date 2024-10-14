@@ -50,7 +50,23 @@ void createPolyFunc(node **head,int n){
     }
 }
 
-void polyAdd(node **head1,node **head2,node **head3){
+void simplifyProduct(node **head3){
+    node *ptr = *head3;
+    node *toDelete;
+    while(ptr->next!=nullptr){
+        if(ptr->expo==ptr->next->expo){
+            ptr->coeff = ptr->coeff + ptr->next->coeff;
+            toDelete = ptr->next;
+            ptr->next = ptr->next->next;
+            free(toDelete);
+        }
+        else{
+            ptr = ptr->next;
+        }
+    }
+}
+
+void polyMul(node **head1,node **head2,node **head3){
     if(*head1 == nullptr && *head2 == nullptr){
         return ;
     }
@@ -63,39 +79,25 @@ void polyAdd(node **head1,node **head2,node **head3){
         return ;
     }
     else{
-        node *ptr1 = *head1,*ptr2 = *head2;
-        while(ptr1!=nullptr && ptr2!=nullptr){
-            if(ptr1->expo == ptr2->expo){
-                insertTerm(head3,ptr1->coeff+ptr2->coeff,ptr1->expo);
-                ptr1 = ptr1->next;
-                ptr2 = ptr2->next;
-            }
-            else if(ptr1->expo > ptr2->expo){
-                insertTerm(head3,ptr1->coeff,ptr1->expo);
-                ptr1 = ptr1->next;
-            }
-            else{
-                insertTerm(head3,ptr2->coeff,ptr2->expo);
-                ptr2 = ptr2->next;
-            }
-        }
+        node *ptr1 = *head1 ,*ptr2 ;
         while(ptr1 != nullptr){
-            insertTerm(head3,ptr1->coeff,ptr1->expo);
+            ptr2 = *head2;
+            while(ptr2 != nullptr){
+                insertTerm(head3,(ptr1->coeff*ptr2->coeff),(ptr1->expo+ptr2->expo));
+                ptr2 = ptr2->next;
+            }
             ptr1 = ptr1->next;
         }
-        while(ptr2!=nullptr){
-            insertTerm(head3,ptr2->coeff,ptr2->expo);
-            ptr2 = ptr2->next;
-        }
+        simplifyProduct(head3);
     }
 }
 
 void print(node *ptr){
     while(ptr->next != nullptr){
-        cout<<"("<<ptr->coeff<<"*10^"<<ptr->expo<<") + ";
+        cout<<"("<<ptr->coeff<<"*x^"<<ptr->expo<<") + ";
         ptr = ptr->next;
     }
-    cout<<" ("<<ptr->coeff<<"*10^"<<ptr->expo<<") ";
+    cout<<" ("<<ptr->coeff<<"*x^"<<ptr->expo<<") ";
 }
 
 int main(){
@@ -113,10 +115,10 @@ int main(){
     print(head2);
     cout<<endl;
     
-    polyAdd(&head1,&head2,&head3);
+    polyMul(&head1,&head2,&head3);
     cout<<"\n";
     print(head1);
-    cout<<" + ";
+    cout<<" * ";
     print(head2);
     cout<<" = ";
     print(head3);
