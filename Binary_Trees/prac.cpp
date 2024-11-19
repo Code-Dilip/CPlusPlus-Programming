@@ -32,31 +32,31 @@ int search_pos(int inOrder[],int start,int end,int curr){
     return -1;
 }
 
-struct Node *buildTree(int preOrder[],int inOrder [],int start,int end){
+struct Node *buildTree(int postOrder[],int inOrder[],int start,int end){
     if(start > end){
         return nullptr;
     }
-    static int index = 0;
+    static int index = end;
     int curr = inOrder[index];
-    index ++;
+    index --;
     struct Node *node = new Node(curr);
+
     if(start == end){
         return node;
     }
     int pos = search_pos(inOrder,start,end,curr);
-    node->left = buildTree(preOrder,inOrder,start,pos-1);
-    node->right = buildTree(preOrder,inOrder,pos+1,end);
-    
+    node->right = buildTree(postOrder,inOrder,pos+1,end);
+    node->left = buildTree(postOrder,inOrder,start,pos-1);
+
     return node;
 }
 
 int main(){
     cout<<"\n";
-    int preOrder[] = {1,2,4,3,5};
+    int postOrder[] = {4,2,5,3,1};
     int inOrder[] = {4,2,1,5,3};
 
-    struct Node *root = buildTree(preOrder,inOrder,0,4);
+    struct Node *root = buildTree(postOrder,inOrder,0,4);
     inOrderTraversal(root);
-
     cout<<"\n";
 }
