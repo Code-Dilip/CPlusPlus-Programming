@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 
 using namespace std;
 
@@ -14,49 +15,44 @@ struct Node{
     }
 };
 
-void inOrderTraversal(struct Node *root){
-    if(root == nullptr){
-        return ;
-    }
-    inOrderTraversal(root->left);
-    cout<<root->data<<" ";
-    inOrderTraversal(root->right);
-}
+void LevelOrderTraversal(struct Node *root){
+   if(root == nullptr){
+    return;
+   }
+   queue<struct Node *>q;
+   q.push(root);
+   q.push(nullptr);
 
-int search_pos(int inOrder[],int start,int end,int curr){
-    for(int i=start;i<=end;i++){
-        if(inOrder[i] == curr){
-            return i;
+   while(!q.empty()){
+    struct Node *node = q.front();
+    q.pop();
+    if(node != nullptr){
+        cout<<node->data<<" ";
+        if(node->left){
+            q.push(node->left);
+        }
+        if(node->right){
+            q.push(node->right);
         }
     }
-    return -1;
-}
-
-struct Node *buildTree(int postOrder[],int inOrder[],int start,int end){
-    if(start > end){
-        return nullptr;
+    else if(!q.empty()){
+        q.push(nullptr);
     }
-    static int index = end;
-    int curr = inOrder[index];
-    index --;
-    struct Node *node = new Node(curr);
-
-    if(start == end){
-        return node;
-    }
-    int pos = search_pos(inOrder,start,end,curr);
-    node->right = buildTree(postOrder,inOrder,pos+1,end);
-    node->left = buildTree(postOrder,inOrder,start,pos-1);
-
-    return node;
+   }
 }
 
 int main(){
     cout<<"\n";
-    int postOrder[] = {4,2,5,3,1};
-    int inOrder[] = {4,2,1,5,3};
 
-    struct Node *root = buildTree(postOrder,inOrder,0,4);
-    inOrderTraversal(root);
+    struct Node *root = new Node(1),*leaf1 = new Node(2),*leaf2 = new Node(3),*leaf3 = new Node(4),*leaf4 = new Node(5),*leaf5 = new Node(6),*leaf6 = new Node(7);
+    root->left = leaf1;
+    root->right = leaf2;
+    
+    leaf1->left = leaf3;
+    leaf1->right = leaf4;
+    leaf2->left = leaf5;
+    leaf2->right = leaf6;
+
+    LevelOrderTraversal(root);
     cout<<"\n";
 }
