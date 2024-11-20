@@ -15,19 +15,22 @@ struct Node{
     }
 };
 
-void LevelOrderTraversal(struct Node *root){
+int sumAtK(struct Node *root,int k){
    if(root == nullptr){
-    return;
+    return -1;
    }
    queue<struct Node *>q;
    q.push(root);
    q.push(nullptr);
+   int level = 0,sum = 0;
 
    while(!q.empty()){
     struct Node *node = q.front();
     q.pop();
     if(node != nullptr){
-        cout<<node->data<<" ";
+        if(level == k){
+            sum += node->data;
+        }
         if(node->left){
             q.push(node->left);
         }
@@ -37,8 +40,10 @@ void LevelOrderTraversal(struct Node *root){
     }
     else if(!q.empty()){
         q.push(nullptr);
+        level ++;
     }
    }
+   return sum;
 }
 
 int main(){
@@ -53,6 +58,6 @@ int main(){
     leaf2->left = leaf5;
     leaf2->right = leaf6;
 
-    LevelOrderTraversal(root);
+    cout<<"Sum at level "<<2<<" is "<<sumAtK(root,2)<<endl;
     cout<<"\n";
 }
