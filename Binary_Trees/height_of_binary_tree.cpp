@@ -1,25 +1,21 @@
 #include<iostream>
-#include<queue>
 
 using namespace std;
 
 struct Node{
     int data;
-    struct Node *left;
-    struct Node *right;
-
+    struct Node *left = nullptr;
+    struct Node *right = nullptr;
     Node(int val){
         data = val;
-        left = nullptr;
-        right = nullptr;
     }
 };
 
-int sum_nodes(struct Node *root){
+int calcHeight(struct Node *root){
     if(root == nullptr){
         return 0;
     }
-    return sum_nodes(root->left)+sum_nodes(root->right)+root->data;
+    return (max(calcHeight(root->left),calcHeight(root->right))+1);
 }
 
 int main(){
@@ -34,6 +30,6 @@ int main(){
     leaf2->left = leaf5;
     leaf2->right = leaf6;
 
-    cout<<"Sum of nodes of the binary tree is "<<sum_nodes(root)<<endl;
+    cout<<"Height of the binary tree is "<<calcHeight(root)<<endl;
     cout<<"\n";
 }
