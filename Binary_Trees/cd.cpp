@@ -6,6 +6,7 @@ struct Node{
     int data;
     struct Node *left = nullptr;
     struct Node *right = nullptr;
+
     Node(int val){
         data = val;
     }
@@ -15,10 +16,10 @@ int calcHeight(struct Node *root){
     if(root == nullptr){
         return 0;
     }
-    return (max(calcHeight(root->left),calcHeight(root->right))+1);
+    return max(calcHeight(root->left),calcHeight(root->right))+1;
 }
 
-int calcDiameter(struct Node *root){
+int calc_diameter(struct Node *root){
     if(root == nullptr){
         return 0;
     }
@@ -26,10 +27,10 @@ int calcDiameter(struct Node *root){
     int rightHeight = calcHeight(root->right);
     int currDiameter = leftHeight+rightHeight+1;
 
-    int leftDiameter = calcDiameter(root->left);
-    int rightDiameter = calcDiameter(root->right);
+    int leftDiameter = calc_diameter(root->left);
+    int rightDiameter = calc_diameter(root->right);
 
-    return (max(currDiameter,leftDiameter,rightDiameter));
+    return max(currDiameter,leftDiameter,rightDiameter);
 }
 
 int main(){
@@ -43,7 +44,7 @@ int main(){
     leaf1->right = leaf4;
     leaf2->left = leaf5;
     leaf2->right = leaf6;
-
-    cout<<"Diameter of the binary tree is "<<calcDiameter(root)<<endl;
-    cout<<"\n";
+    
+    cout<<"Diameter of the rott node of binary tree: "<<calc_diameter(root)<<endl;
+    return 0;
 }
