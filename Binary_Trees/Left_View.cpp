@@ -5,25 +5,23 @@ using namespace std;
 
 struct Node{
     int data;
-    struct Node *left;
-    struct Node *right;
-
+    struct Node *left = nullptr;
+    struct Node *right = nullptr;
     Node(int val){
         data = val;
-        left = nullptr;
-        right = nullptr;
     }
 };
 
-void leftView(struct Node *root){
+void LeftView(struct Node *root){
     if(root == nullptr){
         return ;
     }
     queue<struct Node *>q;
     q.push(root);
 
-    while(!q.empty()){
-        struct Node *curr ;
+    while (!q.empty())
+    {
+        struct Node *curr;
         int n = q.size();
         for(int i=0;i<n;i++){
             curr = q.front();
@@ -52,10 +50,9 @@ int main(){
     leaf2->left = leaf4;
     leaf2->right = leaf5;
     leaf4->left = leaf6;
-
+    
     cout<<"Left view of the Binary Tree: \n";
-    leftView(root);
-
+    LeftView(root);
     cout<<"\n";
     return 0;
 }

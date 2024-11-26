@@ -30,10 +30,10 @@ void right_view(struct Node *root){
             }
         }
         if(curr->left!=nullptr){
-            q.push(root->left);
+            q.push(curr->left);
         }
         if(curr->right!=nullptr){
-            q.push(root->right);
+            q.push(curr->right);
         }
     }
 }
