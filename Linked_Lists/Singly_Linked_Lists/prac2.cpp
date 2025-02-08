@@ -83,17 +83,58 @@ void deleteAtEnd(Node **head){
 void deleteAtPos(Node **head,int pos){
     if(head == nullptr){
         cout<<"The List is Empty!"<<endl;
+        return ;
     }
-    Node *temp = *head, *del;
+    if(pos==0){
+        deleteAtFront(head);
+        return ;
+    }
+    Node *temp = *head,*del;
     int count = 1;
-    while(count<pos-1 && temp->nxt!=nullptr){
+    while(count<pos-1 && temp->nxt->nxt!=nullptr){
         temp = temp->nxt;
         count ++;
     }
     del = temp->nxt;
     temp->nxt = del->nxt;
-    delete del;
 }
+
+void deleteNode(Node **head,int val){
+    if(head == nullptr){
+        cout<<"The List is Empty!"<<endl;
+        return ;
+    }
+    if((*head)->data==val){
+        deleteAtFront(head);
+        return ;
+    }
+    Node *temp = *head,*del;
+    while(temp->nxt->nxt!=nullptr && temp->nxt->data!=val){
+        temp = temp->nxt;
+    }
+    if(temp->nxt->data==val){
+        del = temp->nxt;
+        temp->nxt = del->nxt;
+    }
+}
+
+void reverseList(Node **head){
+    if(head == nullptr){
+        return ;
+    }
+    Node *prev = nullptr;
+    Node *curr = *head;
+    Node *nxtptr = curr->nxt;
+
+    while(curr!=nullptr){
+        nxtptr = curr->nxt;
+        curr->nxt = prev;
+        prev = curr;
+        curr = nxtptr;
+    }
+    *head = prev;
+}
+
 
 int main(){
     Node *head = nullptr;
@@ -125,6 +166,14 @@ int main(){
 
     deleteAtPos(&head,3);
     cout<<"\n";
+    printList(head);
+
+    deleteNode(&head,1);
+    cout<<"\n";
+    printList(head);
+    
+    reverseList(&head);
+    cout<<"\nThe List after reversal is ";
     printList(head);
 
     return 0;
