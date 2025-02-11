@@ -145,6 +145,33 @@ node *Flatten(node *head){
     return head;
 }
 
+node *Flatten2(node *head){
+    if(head == nullptr){
+        return head;
+    }
+    node *curr = head, *nxt;
+    while (curr!=nullptr)
+    {
+        if(curr->child!=nullptr){
+            nxt = curr->next;
+            curr->next = Flatten2(curr->child);
+            (curr->next)->prev = curr;
+            curr->child = nullptr;
+
+            while (curr->next!=nullptr)
+            {
+                curr = curr->next;
+            }
+            if(nxt!=nullptr){
+                curr->next = nxt;
+                nxt->prev = curr;
+            }
+        }
+        curr = curr->next;
+    }
+    return head;
+}
+
 int main(){
     
     node *head1 = nullptr,*head2 = nullptr,*head3 = nullptr;
@@ -175,7 +202,7 @@ int main(){
     temp = temp->next;
     temp->child = head3;
 
-    node *head4 = Flatten(head1);
+    node *head4 = Flatten2(head1);
     cout<<"The Flattened list is ";
     display(head4);
     cout<<endl;

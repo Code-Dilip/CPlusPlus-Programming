@@ -135,6 +135,31 @@ node *reverseKNodes(node *head,int k){
     return head;
 }
 
+node *reverseKNodes2(node *head,int k){
+    node *temp = head;
+    int count = 0;
+    while(count<k){
+        if(temp == nullptr){
+            return head;
+        }
+        temp = temp->next;
+        count ++;
+    }
+    node *prevNode = reverseKNodes2(temp,k);
+    temp = head;
+    count = 0;
+    node *nxt;
+    while(count<k){
+        nxt = temp->next;
+        temp->next = prevNode;
+        prevNode = temp;
+        temp = nxt;
+        count ++;
+    }
+    head = prevNode;
+    return head;
+}
+
 void display(node *head){
     while(head!=nullptr){
         cout<<head->data<<"->";
@@ -154,7 +179,7 @@ int main(){
     display(head);
     cout<<endl;
 
-    head = reverseKNodes(head,2);
+    head = reverseKNodes2(head,2);
     display(head);
     cout<<endl;
 }
