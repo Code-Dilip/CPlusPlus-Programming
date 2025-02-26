@@ -5,16 +5,18 @@
 using namespace std;
 
 bool isPalindrome(string s){
-    string s_cpy = s;
-    reverse(s_cpy.begin(),s_cpy.end());
-    return (s==s_cpy);
+    string s2 = s;
+    reverse(s.begin(),s.end());
+    return (s==s2);
 }
 
-void get_palindromes(string s,vector<vector<string>> &ans,vector<string>partitions){
+
+void get_palindromes(string s, vector<vector<string>> &ans, vector<string> &partitions){
     if(s.size()==0){
         ans.push_back(partitions);
         return;
     }
+    
     for(int i=0;i<s.size();i++){
         string part = s.substr(0,i+1);
         if(isPalindrome(part)){
@@ -26,15 +28,14 @@ void get_palindromes(string s,vector<vector<string>> &ans,vector<string>partitio
 }
 
 int main(){
-    string s="abaabcaba";
+    string s = "aab";
     vector<vector<string>> ans;
-    vector <string> partitions;
+    vector<string> partitions;
     get_palindromes(s,ans,partitions);
-    for(vector<string> partition: ans){
-        for(string str: partition){
-            cout<<str;
+    for(vector<string> partitions: ans){
+        for(string str: partitions){
+            cout<<str<<endl;
         }
-        cout<<endl;
     }
     cout<<endl;
     return 0;
