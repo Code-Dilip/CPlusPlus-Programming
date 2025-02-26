@@ -2,14 +2,13 @@
 #include<vector>
 using namespace std;
 
-
-int partition(vector<int> &arr,int st,int end){
+int partition(vector<int>&arr,int st,int end){
     int pivot = arr[end];
     int idx = st-1;
     for(int j=st;j<end;j++){
         if(arr[j]<=pivot){
             idx++;
-            swap(arr[j],arr[idx]);
+            swap(arr[idx],arr[j]);
         }
     }
     idx++;
@@ -17,12 +16,14 @@ int partition(vector<int> &arr,int st,int end){
     return idx;
 }
 
-void quickSort(vector<int> &arr,int st,int end){
-    if(st<end){
-        int pivot_idx = partition(arr,st,end);
 
-        quickSort(arr,st,pivot_idx-1); //Left half
-        quickSort(arr,pivot_idx+1,end);  //Right half
+void quickSort(vector<int> &ans,int st,int end){
+    
+    if(st<end){
+        int pivot_idx = partition(ans,st,end);
+
+        quickSort(ans,st,pivot_idx-1); //Left half
+        quickSort(ans,pivot_idx+1,end); //Right half
     }
 }
 
